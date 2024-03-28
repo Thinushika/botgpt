@@ -7,23 +7,17 @@ import "dotenv/config";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 if (!process.env.PINECONE_API_KEY || typeof process.env.PINECONE_API_KEY !== 'string') {
-        throw new Error('Pinecone API key is not defined or is not a string.');
-    }
+    throw new Error('Pinecone API key is not defined or is not a string.');
+}
 const pc = new Pinecone({ apiKey: process.env.PINECONE_API_KEY });
 
 export const chatResponse = async (req: Request, res: Response) => {
-    console.log("============= NEW CALL ==============");
-    console.log("=====================================");
 
-
-
-    // if (!process.env.OPENAI_API_KEY || typeof process.env.OPENAI_API_KEY !== 'string') {
-    //     throw new Error('OpenAI API key is not defined or is not a string.');
-    // }
-    
     const index = pc.index("dfccchatbot");
-    const namespace = index.namespace('DFCC_GPT_DB')
+    const namespace = index.namespace('pinecone-gpt-test')
 
+
+    
 
 
 
@@ -40,7 +34,7 @@ export const chatResponse = async (req: Request, res: Response) => {
             break;
         }
     }
-    console.log("userQuestion : ", userQuestion)
+    // console.log("userQuestion : ", userQuestion)
 
 
 
@@ -72,9 +66,9 @@ Standalone question:`
             temperature: 0,
         });
 
-        console.log("chatHistory : ", chatHistory);
-        console.log("Standalone Question PROMPT :", questionRephrasePrompt)
-        console.log("Standalone Question :", completionQuestion.choices[0].text)
+        // console.log("chatHistory : ", chatHistory);
+        // console.log("Standalone Question PROMPT :", questionRephrasePrompt)
+        // console.log("Standalone Question :", completionQuestion.choices[0].text)
 
 
 
